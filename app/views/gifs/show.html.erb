@@ -1,17 +1,21 @@
-<p id="notice"><%= notice %></p>
-
-<div>
+<div class="mb-6">
   <%= image_tag @gif.image_url %>
 </div>
 
-<p>This gif was uploaded by <strong><%= @gif.user.name %></strong></p>
-<p>Gif tags:</p>
+<div class="bg-gray-200 rounded p-4 mb-10">
+  <p class="mb-2">This was uploaded by <strong><%= link_to @gif.user.name, @gif.user %></strong></p>
+  <p>Gif tags: <span class="text-sm"><%= linked_tag_list @gif %></span></p>
 
-<p>
-  <%= linked_tag_list @gif %>
-</p>
+  <hr class="my-6" />
+
+  <div data-controller="clipboard" class="flex">
+    <%= text_field_tag nil, full_gif_url(@gif), data: { target: "clipboard.source" }, class: "bg-gray-300 appearance-none border-2 border-gray-300 rounded flex-grow py-2 px-4 mr-2 text-gray-700 leading-tight focus:outline-none focus:border-purple-500", readonly: true %>
+    <button data-action="click->clipboard#copy" data-target="clipboard.button" class="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded">
+      Copy
+    </button>
+  </div>
+</div>
 
 <% if user_signed_in? && current_user == @gif.user %>
-  <%= link_to 'Edit', edit_gif_path(@gif) %> |
-  <%= link_to 'Destroy', @gif, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Edit', edit_gif_path(@gif), class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
 <% end %>
