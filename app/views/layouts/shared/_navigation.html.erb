@@ -1,0 +1,24 @@
+<div class="flex bg-white border-b border-gray-200 h-16 items-center">
+  <div class="w-full max-w-screen-xl relative mx-auto px-6">
+    <div class="flex items-center -mx-6">
+      <div class="flex-grow">
+        <div class="flex items-center">
+          <%= link_to "AnimatedGif.me", root_path, class: "block lg:mr-4" %>
+        </div>
+      </div>
+
+      <div class="text-right">
+        <%= link_to "Gifs", root_path, class: "text-gray-600 hover:text-gray-700 mr-4" %>
+
+        <% if user_signed_in? %>
+          <%= link_to 'New Gif', new_gif_path, class: "text-gray-600 hover:text-gray-700 mr-4" %>
+          <%= link_to "Account", edit_user_registration_path, class: "text-gray-600 hover:text-gray-700 mr-4" %>
+          <%= link_to "Sign out", destroy_user_session_path, method: :delete, class: "text-gray-600 hover:text-gray-700 mr-4" %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, class: "text-gray-600 hover:text-gray-700 mr-4" %>
+          <%= link_to "Login", new_user_session_path, class: "text-gray-600 hover:text-gray-700" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
