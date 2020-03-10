@@ -1,13 +1,5 @@
 <h1 class="text-3xl text-center font-bold uppercase py-12">Gifs</h1>
 
 <div class="flex flex-wrap justify-center">
-  <% @gifs.each do |gif| %>
-    <div class="w-64 m-2 border rounded shadow">
-      <%= link_to image_tag(gif.image_url, class: "mx-auto"), gif %>
-      <div class="p-2 text-sm text-center">
-        <p class="mb-2">This was uploaded by <strong><%= link_to gif.user.name, gif.user %></strong></p>
-        <%= link_to linked_tag_list gif %>
-      </div>
-    </div>
-  <% end %>
+  <%= render @gifs %>
 </div>

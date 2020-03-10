@@ -13,24 +13,33 @@
     <% end %>
 
     <div class="mb-6">
-      <label class="block text-gray-500 font-bold mb-1">
-        <%= form.label :image %>
-      </label>
+      <% if form.object.persisted? %>
+        <%= image_tag form.object.image_url %>
+      <% else %>
+        <label class="block text-gray-500 font-bold mb-1">
+          <%= form.label :image %>
+        </label>
 
-      <%= form.hidden_field :image, value: form.object.cached_image_data %>
-      <%= form.file_field :image, class: "appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight border-4 border-dashed border-gray-200 rounded-lg" %>
+        <%= form.hidden_field :image, value: form.object.cached_image_data %>
+        <%= form.file_field :image, class: "appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight border-4 border-dashed border-gray-200 rounded-lg" %>
+      <% end %>
     </div>
 
     <div class="mb-6">
       <label class="block text-gray-500 font-bold mb-1">
-        <%= form.label :tag_list %>
+        <%= form.label :tag_list, "Tag list (comma separated)" %>
       </label>
 
       <%= form.text_field :tag_list, value: form.object.tag_list.join(", "), class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" %>
     </div>
 
-    <div class="w-full">
-      <%= form.submit class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" %>
+    <div class="w-full flex justify-between">
+      <div>
+        <%= form.submit class: "shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded mr-2" %>
+        <%= link_to "Cancel", (@gif.persisted? ? @gif : root_path) %>
+      </div>
+
+      <%= link_to 'Destroy', @gif, method: :delete, data: { confirm: 'Are you sure?' }, class: "shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" if @gif.persisted? %>
     </div>
   <% end %>
 </div>
